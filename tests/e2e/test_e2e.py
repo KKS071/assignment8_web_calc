@@ -74,6 +74,7 @@ def test_calculator_divide_by_zero(page, fastapi_server):
     # Use an assertion to check that the text within the result div (with id 'result') is exactly
     # "Error: Cannot divide by zero!". This verifies that the application handles division by zero
     # gracefully and displays the correct error message to the user.
+    page.wait_for_selector('#result:has-text("Error: Cannot divide by zero!")')
     assert page.inner_text('#result') == 'Error: Cannot divide by zero!'
 
 @pytest.mark.e2e
@@ -82,6 +83,7 @@ def test_calculator_subtract(page, fastapi_server):
     page.fill('#a', '10')
     page.fill('#b', '4')
     page.click('button:text("Subtract")')
+    page.wait_for_selector('#result:has-text("Calculation Result: 6")')
     assert page.inner_text('#result') == 'Calculation Result: 6'
 
 @pytest.mark.e2e
@@ -90,4 +92,5 @@ def test_calculator_multiply(page, fastapi_server):
     page.fill('#a', '10')
     page.fill('#b', '4')
     page.click('button:text("Multiply")')
+    page.wait_for_selector('#result:has-text("Calculation Result: 40")')
     assert page.inner_text('#result') == 'Calculation Result: 40'
